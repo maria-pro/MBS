@@ -1,0 +1,15 @@
+---
+title: "Telehealth"
+author: "Maria Prokofieva"
+date: "06/02/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Telehealth Information
+From 1 January 2022, patient access to telehealth services will be supported by continued MBS arrangements. The continued arrangements build on the temporary telehealth items introduced as part of the Government's response to the COVID-19 pandemic, and will continue to enable all Medicare eligible Australians to access telehealth (video and phone) services for a range of (out of hospital) consultations that can also be provided in person.
+
+MBS telehealth items will continue to be available to GPs, medical practitioners, specialists, consultant physicians, nurse practitioners, participating midwives, allied health providers and dental practitioners in the practice of oral and maxillofacial surgery.
