@@ -45,7 +45,13 @@ This file incorporates the 1 January 2022 changes and replaces the file released
 
 - updated rapid antigen testing to expand the service described in item 93715 (=assessment and management of a person with COVID-19 infection of recent onset)
 
-View the `.csv` version [here](https://raw.githubusercontent.com/maria-pro/MBS/main/telehealth_012022.csv)
+View the `.csv` version 
+
+- data file [here](https://raw.githubusercontent.com/maria-pro/MBS/main/telehealth_012022.csv)
+
+- item map file [here](https://github.com/maria-pro/MBS/raw/main/item_map_01_2022.csv)
+
+- item description file [here](https://github.com/maria-pro/MBS/raw/main/Item_Descriptors.csv)
 
 ```{r eval=FALSE, echo=FALSE}
 xml_link<-"http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/4601E2A66F2AAB6ACA258797000C2F26/$File/mbs-xml-20220118.XML"
