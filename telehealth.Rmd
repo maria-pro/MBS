@@ -9,7 +9,77 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-### Telehealth Information
-From 1 January 2022, patient access to telehealth services will be supported by continued MBS arrangements. The continued arrangements build on the temporary telehealth items introduced as part of the Government's response to the COVID-19 pandemic, and will continue to enable all Medicare eligible Australians to access telehealth (video and phone) services for a range of (out of hospital) consultations that can also be provided in person.
+```{r message=FALSE}
+library(XML)
+library(tidyverse)
+```
 
-MBS telehealth items will continue to be available to GPs, medical practitioners, specialists, consultant physicians, nurse practitioners, participating midwives, allied health providers and dental practitioners in the practice of oral and maxillofacial surgery.
+### Telehealth Information
+
+From 1 January 2022, patient access to telehealth services will be supported by continued MBS arrangements. The continued arrangements build on the **temporary telehealth items** introduced as part of the Government's response to the COVID-19 pandemic, and will continue to enable all Medicare eligible Australians to access **telehealth (video and phone)** services for a range of (out of hospital) consultations that can also be provided in person.
+
+*MBS telehealth items* will continue to be available to GPs, medical practitioners, specialists, consultant physicians, nurse practitioners, participating midwives, allied health providers and dental practitioners in the practice of oral and maxillofacial surgery.
+
+#### Things to consider:
+
+- new ‘30/20 rule'?
+
+From 1 July 2022, a new prescribed pattern of service (a ‘30/20 rule’) will apply to telephone attendances provided by consultant physicians and GPs. This was introduced on 1 January 2022, but will now be deferred. 
+
+Under these new arrangements, a consultant physician or GP who provides 30 or more phone attendances on each of 20 or more days in a 12-month period would be referred to the *Professional Services Review* (PSR) https://www.psr.gov.au/ 
+
+All Victorian SARS-CoV-2 cases by local government area, postcode and acquired source
+https://discover.data.vic.gov.au/dataset/all-victorian-sars-cov-2-cases-by-local-government-area-postcode-and-acquired-source
+
+MBS telehealth items:
+
+- data
+[File released on 19 January 2021](http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/4601E2A66F2AAB6ACA258797000C2F26/$File/mbs-xml-20220118.XML)
+
+**Note**: 
+
+The file includes 
+
+- includes temporarily reinstating 75 **telehealth** and phone services to enable practitioners to support their patients during the current increase in Omicron COVID-19 cases.
+This file incorporates the 1 January 2022 changes and replaces the file released on 23 December 2021. 
+
+- updated rapid antigen testing to expand the service described in item 93715 (=assessment and management of a person with COVID-19 infection of recent onset)
+
+View the `.csv` version [here](https://raw.githubusercontent.com/maria-pro/MBS/main/telehealth_012022.csv)
+
+```{r eval=FALSE, echo=FALSE}
+xml_link<-"http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/4601E2A66F2AAB6ACA258797000C2F26/$File/mbs-xml-20220118.XML"
+
+data<-xmlToDataFrame(xml_link)
+write_csv(data, file="telehealth_012022.csv")
+```
+
+```{r message=FALSE}
+data<-read_csv("telehealth_012022.csv")%>%
+  mutate_if(is.character, as.factor)%>%
+  mutate(DerivedFee=as.character(DerivedFee))%>%
+  mutate(
+    across(c("Category", "SubGroup", "SubHeading"),
+           factor)
+    )
+```
+
+Quick data summary:
+```{r echo=FALSE}
+skimr::skim(data)
+```
+
+- The item map from [here](http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/1BC94358D4F276D3CA257CCF0000AA73/$File/20220301_MBSONLINE_IMAP%2021JAN22.TXT) converted to csv
+
+```{r echo=FALSE}
+item_map<-read_csv("item_map_01_2022.csv")
+
+skimr::skim(item_map)
+```
+
+Item Descriptors file from [here](http://www.mbsonline.gov.au/internet/mbsonline/publishing.nsf/Content/1BC94358D4F276D3CA257CCF0000AA73/$File/20220301_MBSONLINE_DESC.TXT)
+```{r echo=FALSE}
+item_descr<-read_csv("Item_Descriptors.csv")
+
+skimr::skim(item_descr)
+```
